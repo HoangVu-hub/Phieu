@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; }
-        .card { border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #f8f9fa;
+        }
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
         .section-title {
             background: linear-gradient(135deg, #1e40af, #3b82f6);
             color: white;
@@ -17,11 +23,21 @@
             border-radius: 16px 16px 0 0;
             font-weight: 600;
         }
-        .form-control, .form-select { border-radius: 10px; padding: 10px 14px; }
-        .form-label { font-weight: 600; color: #1e40af; }
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #1e40af;
+        }
         .required { color: #ef4444; }
         .table th { background-color: #f1f5f9; font-weight: 600; }
-        .score-input { text-align: center; font-weight: 600; }
+        .score-input {
+            text-align: center;
+            font-weight: 600;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -30,12 +46,15 @@
             <h1 class="display-5 fw-bold text-primary mb-2">📋 PHIẾU ĐĂNG KÝ XÉT TUYỂN</h1>
             <h2 class="h4 text-muted">Đại học Cửu Long - Năm 2026</h2>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-12 col-xl-10">
 
                 <!-- THÔNG TIN HỌC SINH -->
                 <div class="card mb-4">
-                    <div class="section-title"><i class="fas fa-user me-2"></i> THÔNG TIN HỌC SINH</div>
+                    <div class="section-title">
+                        <i class="fas fa-user me-2"></i> THÔNG TIN HỌC SINH
+                    </div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -64,8 +83,9 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Số căn cước công dân (12 số) <span class="required">*</span></label>
-                                <input type="text" id="cccd" class="form-control" maxlength="12" 
-                                       placeholder="Nhập đúng 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <input type="text" id="cccd" class="form-control" maxlength="12"
+                                       placeholder="Nhập đúng 12 số CCCD"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                             </div>
                             <div class="col-md-8">
                                 <label class="form-label">Hộ khẩu thường trú - Xã/Phường</label>
@@ -135,12 +155,14 @@
                             <input type="text" id="majorSearch" class="form-control form-control-lg" placeholder="Tìm ngành...">
                             <div id="suggestions" class="list-group mt-2 shadow" style="max-height: 380px; overflow-y: auto; display: none;"></div>
                         </div>
+
                         <div id="comboSection" class="mb-4 d-none">
                             <label class="form-label">Chọn tổ hợp môn (THM) <span class="required">*</span></label>
                             <select id="comboSelect" class="form-select" onchange="showScoreTable()">
                                 <option value="">Chọn tổ hợp môn...</option>
                             </select>
                         </div>
+
                         <div id="scoreSection" class="d-none">
                             <label class="form-label">Nhập điểm học bạ theo tổ hợp</label>
                             <div class="table-responsive">
@@ -214,7 +236,7 @@
             danTocList.forEach(dt => document.getElementById('danToc').appendChild(new Option(dt, dt)));
         }
 
-        // ==================== CHỌN NGÀNH & ĐIỂM (rút gọn) ====================
+        // ==================== CHỌN NGÀNH ====================
         const majorSearch = document.getElementById('majorSearch');
         const suggestions = document.getElementById('suggestions');
         let selectedIndex = -1;
@@ -241,6 +263,7 @@
             suggestions.style.display = 'none';
             document.getElementById('comboSection').classList.remove('d-none');
             renderComboOptions(majors[index].combos);
+            document.getElementById('scoreSection').classList.add('d-none');
         }
 
         function renderComboOptions(combos) {
@@ -249,6 +272,7 @@
             combos.forEach(combo => select.appendChild(new Option(combo, combo)));
         }
 
+        // ==================== BẢNG ĐIỂM ====================
         function showScoreTable() {
             const combo = document.getElementById('comboSelect').value;
             if (!combo) return;
@@ -259,7 +283,7 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="text-center fw-bold">${i+1}</td>
-                    <td>${mon}</td>
+                    <td class="fw-medium">${mon}</td>
                     <td><input type="text" class="form-control score-input" data-subject="${mon}" data-lop="10" maxlength="5" placeholder="0.0"></td>
                     <td><input type="text" class="form-control score-input" data-subject="${mon}" data-lop="11" maxlength="5" placeholder="0.0"></td>
                     <td><input type="text" class="form-control score-input" data-subject="${mon}" data-lop="12" maxlength="5" placeholder="0.0"></td>
@@ -269,7 +293,7 @@
             document.getElementById('scoreSection').classList.remove('d-none');
         }
 
-        // ==================== SUBMIT ====================
+        // ==================== SUBMIT FORM ====================
         async function submitForm() {
             const data = {
                 ho_ten: document.getElementById('hoTen').value.trim(),
@@ -290,25 +314,33 @@
                 nam_tot_nghiep: document.getElementById('namTotNghiep').value,
                 nganh1: document.getElementById('majorSearch').value,
                 thm1: document.getElementById('comboSelect').value,
-                nganh2: "", thm2: "", nganh3: "", thm3: "", nganh4: "", thm4: "",
+                nganh2: "", thm2: "",
+                nganh3: "", thm3: "",
+                nganh4: "", thm4: "",
                 mon1: "", d_mon1_10: "", d_mon1_11: "", d_mon1_12: "",
                 mon2: "", d_mon2_10: "", d_mon2_11: "", d_mon2_12: "",
                 mon3: "", d_mon3_10: "", d_mon3_11: "", d_mon3_12: ""
             };
 
-            // Lấy điểm
-            document.querySelectorAll('#scoreTableBody tr').forEach((row, index) => {
+            // Lấy điểm từ bảng
+            const rows = document.querySelectorAll('#scoreTableBody tr');
+            rows.forEach((row, index) => {
                 const mon = row.cells[1].textContent.trim();
-                const d10 = row.cells[2].querySelector('input').value || "";
-                const d11 = row.cells[3].querySelector('input').value || "";
-                const d12 = row.cells[4].querySelector('input').value || "";
-                if (index === 0) { data.mon1 = mon; data.d_mon1_10 = d10; data.d_mon1_11 = d11; data.d_mon1_12 = d12; }
-                else if (index === 1) { data.mon2 = mon; data.d_mon2_10 = d10; data.d_mon2_11 = d11; data.d_mon2_12 = d12; }
-                else if (index === 2) { data.mon3 = mon; data.d_mon3_10 = d10; data.d_mon3_11 = d11; data.d_mon3_12 = d12; }
+                const d10 = row.cells[2].querySelector('input')?.value || "";
+                const d11 = row.cells[3].querySelector('input')?.value || "";
+                const d12 = row.cells[4].querySelector('input')?.value || "";
+                
+                if (index === 0) {
+                    data.mon1 = mon; data.d_mon1_10 = d10; data.d_mon1_11 = d11; data.d_mon1_12 = d12;
+                } else if (index === 1) {
+                    data.mon2 = mon; data.d_mon2_10 = d10; data.d_mon2_11 = d11; data.d_mon2_12 = d12;
+                } else if (index === 2) {
+                    data.mon3 = mon; data.d_mon3_10 = d10; data.d_mon3_11 = d11; data.d_mon3_12 = d12;
+                }
             });
 
-            if (!data.ho_ten || !data.cccd || data.cccd.length !== 12 || !data.nganh1) {
-                alert("Vui lòng nhập đầy đủ: Họ tên, CCCD (12 số), Ngành học!");
+            if (!data.ho_ten || !data.cccd || data.cccd.length !== 12 || !data.nganh1 || !data.thm1) {
+                alert("Vui lòng nhập đầy đủ thông tin bắt buộc:\n• Họ và tên\n• CCCD (12 số)\n• Ngành học\n• Tổ hợp môn");
                 return;
             }
 
@@ -327,16 +359,19 @@
                         alert("✅ Tạo PDF thành công!");
                         window.open(result.pdfUrl, "_blank");
                     } else {
-                        alert("Lỗi: " + (result.error || "Không xác định"));
+                        alert("Lỗi từ server: " + (result.error || "Không xác định"));
                     }
                 } catch (err) {
-                    alert("Lỗi kết nối. Vui lòng thử lại sau.");
+                    alert("Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.");
+                    console.error(err);
                 }
             }
         }
 
         function nhapLaiForm() {
-            if (confirm("Nhập lại toàn bộ phiếu?")) location.reload();
+            if (confirm("Bạn có chắc muốn nhập lại toàn bộ phiếu không?")) {
+                location.reload();
+            }
         }
 
         window.onload = initSelects;
