@@ -334,6 +334,7 @@
                 `;
                 tbody.appendChild(tr);
             });
+            // Khôi phục điểm đã nhập
             document.querySelectorAll('#scoreTableBody input').forEach(input => {
                 const sub = input.dataset.subject;
                 const lop = input.dataset.lop;
@@ -360,6 +361,39 @@
                     const lop = this.dataset.lop;
                     if (!scoreMemory[subject]) scoreMemory[subject] = {};
                     scoreMemory[subject][lop] = this.value;
+                });
+                input.addEventListener('keydown', function(e) {
+                    if (e.key !== 'Enter') return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const currentLop = parseInt(this.dataset.lop);
+                    const currentRow = this.closest('tr');
+                    const rows = Array.from(currentRow.parentElement.rows);
+                    const rowIndex = rows.indexOf(currentRow);
+                    let nextInput = null;
+                    if (currentLop === 10) {
+                        if (rowIndex + 1 < rows.length) {
+                            nextInput = rows[rowIndex + 1].cells[2].querySelector('input');
+                        } else {
+                            nextInput = rows[0].cells[3].querySelector('input');
+                        }
+                    } else if (currentLop === 11) {
+                        if (rowIndex + 1 < rows.length) {
+                            nextInput = rows[rowIndex + 1].cells[3].querySelector('input');
+                        } else {
+                            nextInput = rows[0].cells[4].querySelector('input');
+                        }
+                    } else if (currentLop === 12) {
+                        if (rowIndex + 1 < rows.length) {
+                            nextInput = rows[rowIndex + 1].cells[4].querySelector('input');
+                        } else {
+                            nextInput = rows[0].cells[2].querySelector('input');
+                        }
+                    }
+                    if (nextInput) {
+                        nextInput.focus();
+                        nextInput.select();
+                    }
                 });
             });
         }
@@ -393,6 +427,7 @@
                 mon3: "", d_mon3_10: "", d_mon3_11: "", d_mon3_12: ""
             };
 
+            // Lấy điểm từ bảng
             const rows = document.querySelectorAll('#scoreTableBody tr');
             rows.forEach((row, index) => {
                 const mon = row.cells[1].textContent.trim();
@@ -414,7 +449,7 @@
             }
 
             if (confirm("Xác nhận tạo phiếu và xuất PDF?")) {
-                const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxFD1bXe-T6hkkkcP9ip567lhe-RkJYsifHhvQSViWC1pkrfDd5D6NKHGUQ-cMXQv6/exec";
+                const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKb-j2q-OAXFDSSg974S9owbNM8mciLk4jrT8Sa0JndglE9CT5weaDe9FWCHNfnDHG/exec";
                 try {
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: "POST",
@@ -431,7 +466,6 @@
                     }
                 } catch (err) {
                     alert("Lỗi kết nối. Vui lòng thử lại sau.");
-                    console.error(err);
                 }
             }
         }
