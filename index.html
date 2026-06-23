@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu Đăng Ký Xét Tuyển - ĐH Cửu Long 2026</title>
+    <title>Phiếu Thông Tin Xét Tuyển - ĐH Cửu Long 2026</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,20 +36,17 @@
         .score-input {
             text-align: center;
             font-weight: 600;
-            width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h1 class="display-5 fw-bold text-primary mb-2">📋 PHIẾU ĐĂNG KÝ XÉT TUYỂN</h1>
+            <h1 class="display-5 fw-bold text-primary mb-2">📋 PHIẾU THÔNG TIN XÉT TUYỂN</h1>
             <h2 class="h4 text-muted">Đại học Cửu Long - Năm 2026</h2>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-12 col-xl-10">
-
                 <!-- THÔNG TIN HỌC SINH -->
                 <div class="card mb-4">
                     <div class="section-title">
@@ -83,8 +80,8 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Số căn cước công dân (12 số) <span class="required">*</span></label>
-                                <input type="text" id="cccd" class="form-control" maxlength="12"
-                                       placeholder="Nhập đúng 12 số CCCD"
+                                <input type="text" id="cccd" class="form-control"
+                                       maxlength="12" placeholder="Nhập đúng 12 số CCCD"
                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                             </div>
                             <div class="col-md-8">
@@ -96,16 +93,16 @@
                                 <select id="hoKhauTinh" class="form-select"></select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Địa chỉ nhận thư</label>
+                                <label class="form-label">Địa chỉ nhà (để gửi thư bưu điện)</label>
                                 <input type="text" id="diaChiNha" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Tỉnh THPT</label>
-                                <select id="tinhTruongTHPT" class="form-select"></select>
+                                <label class="form-label">Học lớp 12 tại trường</label>
+                                <input type="text" id="truongTHPT" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Trường THPT</label>
-                                <input type="text" id="truongTHPT" class="form-control">
+                                <label class="form-label">Thuộc tỉnh</label>
+                                <select id="tinhTruongTHPT" class="form-select"></select>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">SĐT 1 <span class="required">*</span></label>
@@ -152,17 +149,16 @@
                     <div class="card-body">
                         <div class="mb-4">
                             <label class="form-label">Chọn ngành học <span class="required">*</span></label>
-                            <input type="text" id="majorSearch" class="form-control form-control-lg" placeholder="Tìm ngành...">
+                            <input type="text" id="majorSearch" class="form-control form-control-lg"
+                                   placeholder="Tìm ngành...">
                             <div id="suggestions" class="list-group mt-2 shadow" style="max-height: 380px; overflow-y: auto; display: none;"></div>
                         </div>
-
                         <div id="comboSection" class="mb-4 d-none">
                             <label class="form-label">Chọn tổ hợp môn (THM) <span class="required">*</span></label>
                             <select id="comboSelect" class="form-select" onchange="showScoreTable()">
                                 <option value="">Chọn tổ hợp môn...</option>
                             </select>
                         </div>
-
                         <div id="scoreSection" class="d-none">
                             <label class="form-label">Nhập điểm học bạ theo tổ hợp</label>
                             <div class="table-responsive">
@@ -199,7 +195,7 @@
         // ==================== DỮ LIỆU ====================
         const tinhList = ["An Giang","Bạc Liêu","Bến Tre","Cà Mau","Cần Thơ","Đồng Tháp","Hậu Giang","Kiên Giang","Long An","Sóc Trăng","Tiền Giang","Trà Vinh","Vĩnh Long","TP. Hồ Chí Minh","Khác"];
         const danTocList = ["Kinh","Hoa","Khmer","Chăm","Thái","Mường","Nùng","Tày","H'Mông","Dao","Khác"];
-
+       
         const majors = [
             {name: "Y khoa", combos: ["A00","A01","A02","B00","B03","B08","C01","C08","D07"]},
             {name: "Dược học", combos: ["A00","A01","A02","B00","B03","B08","C01","C08","D07"]},
@@ -208,7 +204,6 @@
             {name: "Quản trị kinh doanh", combos: ["A00","A01","A03","C03","C04","D01","X02","X17","X21"]},
             {name: "Luật", combos: ["A00","A01","C00","C03","C07","D01","X02","X17","X21"]},
         ];
-
         const subjectMap = {
             "A00": ["Toán", "Vật Lý", "Hóa Học"],
             "A01": ["Toán", "Vật Lý", "Tiếng Anh"],
@@ -224,7 +219,6 @@
             "D01": ["Toán", "Văn", "Tiếng Anh"],
             "D07": ["Toán", "Hóa Học", "Tiếng Anh"],
         };
-
         let scoreMemory = {};
 
         // ==================== KHỞI TẠO ====================
@@ -234,6 +228,32 @@
                 tinhList.forEach(t => select.appendChild(new Option(t, t)));
             });
             danTocList.forEach(dt => document.getElementById('danToc').appendChild(new Option(dt, dt)));
+            setupPersonalInfoNavigation();
+        }
+
+        function setupPersonalInfoNavigation() {
+            const inputs = [
+                document.getElementById('hoTen'), document.getElementById('gioiTinh'),
+                document.getElementById('ngaySinh'), document.getElementById('noiSinh'),
+                document.getElementById('danToc'), document.getElementById('cccd'),
+                document.getElementById('hoKhauXa'), document.getElementById('hoKhauTinh'),
+                document.getElementById('diaChiNha'), document.getElementById('truongTHPT'),
+                document.getElementById('tinhTruongTHPT'), document.getElementById('sdt1'),
+                document.getElementById('sdt2'), document.getElementById('hocLuc'),
+                document.getElementById('hanhKiem'), document.getElementById('namTotNghiep'),
+                document.getElementById('majorSearch')
+            ];
+            inputs.forEach((field, index) => {
+                if (!field) return;
+                field.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        let next = inputs[index + 1];
+                        if (!next) next = inputs[0];
+                        next.focus();
+                    }
+                });
+            });
         }
 
         // ==================== CHỌN NGÀNH ====================
@@ -258,12 +278,35 @@
             if (filtered.length > 0) suggestions.style.display = 'block';
         });
 
+        majorSearch.addEventListener('keydown', function(e) {
+            if (suggestions.style.display !== 'block') return;
+            const items = suggestions.querySelectorAll('.list-group-item');
+            if (items.length === 0) return;
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex + 1) % items.length;
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+            } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                const selectedText = items[selectedIndex].textContent;
+                const majorObj = majors.find(m => m.name === selectedText);
+                if (majorObj) selectMajor(majors.indexOf(majorObj));
+                return;
+            }
+            items.forEach((item, i) => item.classList.toggle('active', i === selectedIndex));
+        });
+
         function selectMajor(index) {
             majorSearch.value = majors[index].name;
             suggestions.style.display = 'none';
+            selectedIndex = -1;
             document.getElementById('comboSection').classList.remove('d-none');
             renderComboOptions(majors[index].combos);
             document.getElementById('scoreSection').classList.add('d-none');
+            majorSearch.blur();
         }
 
         function renderComboOptions(combos) {
@@ -277,6 +320,7 @@
             const combo = document.getElementById('comboSelect').value;
             if (!combo) return;
             const subjects = subjectMap[combo] || [];
+            if (subjects.length === 0) return;
             const tbody = document.getElementById('scoreTableBody');
             tbody.innerHTML = '';
             subjects.forEach((mon, i) => {
@@ -290,7 +334,34 @@
                 `;
                 tbody.appendChild(tr);
             });
+            document.querySelectorAll('#scoreTableBody input').forEach(input => {
+                const sub = input.dataset.subject;
+                const lop = input.dataset.lop;
+                if (scoreMemory[sub] && scoreMemory[sub][lop]) input.value = scoreMemory[sub][lop];
+            });
             document.getElementById('scoreSection').classList.remove('d-none');
+            setupScoreInputs();
+        }
+
+        function setupScoreInputs() {
+            const inputs = Array.from(document.querySelectorAll('#scoreTableBody input.score-input'));
+            inputs.forEach((input) => {
+                input.addEventListener('input', () => {
+                    input.value = input.value.replace(/[^0-9.]/g, '');
+                });
+                input.addEventListener('blur', function() {
+                    let val = parseFloat(this.value);
+                    if (isNaN(val) || val < 0) { this.value = ''; return; }
+                    if (val > 100) val = 100;
+                    if (val > 10) val = val / 10;
+                    this.value = val % 1 === 0 ? val.toString() : val.toFixed(1);
+                    if (this.value.endsWith('.0')) this.value = this.value.slice(0, -2);
+                    const subject = this.dataset.subject;
+                    const lop = this.dataset.lop;
+                    if (!scoreMemory[subject]) scoreMemory[subject] = {};
+                    scoreMemory[subject][lop] = this.value;
+                });
+            });
         }
 
         // ==================== SUBMIT FORM ====================
@@ -322,14 +393,12 @@
                 mon3: "", d_mon3_10: "", d_mon3_11: "", d_mon3_12: ""
             };
 
-            // Lấy điểm từ bảng
             const rows = document.querySelectorAll('#scoreTableBody tr');
             rows.forEach((row, index) => {
                 const mon = row.cells[1].textContent.trim();
-                const d10 = row.cells[2].querySelector('input')?.value || "";
-                const d11 = row.cells[3].querySelector('input')?.value || "";
-                const d12 = row.cells[4].querySelector('input')?.value || "";
-                
+                const d10 = row.cells[2].querySelector('input').value || "";
+                const d11 = row.cells[3].querySelector('input').value || "";
+                const d12 = row.cells[4].querySelector('input').value || "";
                 if (index === 0) {
                     data.mon1 = mon; data.d_mon1_10 = d10; data.d_mon1_11 = d11; data.d_mon1_12 = d12;
                 } else if (index === 1) {
@@ -339,14 +408,13 @@
                 }
             });
 
-            if (!data.ho_ten || !data.cccd || data.cccd.length !== 12 || !data.nganh1 || !data.thm1) {
-                alert("Vui lòng nhập đầy đủ thông tin bắt buộc:\n• Họ và tên\n• CCCD (12 số)\n• Ngành học\n• Tổ hợp môn");
+            if (!data.ho_ten || !data.cccd || data.cccd.length !== 12 || !data.nganh1) {
+                alert("Vui lòng nhập đầy đủ thông tin bắt buộc (Họ tên, CCCD 12 số, Ngành học)!");
                 return;
             }
 
             if (confirm("Xác nhận tạo phiếu và xuất PDF?")) {
                 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxFD1bXe-T6hkkkcP9ip567lhe-RkJYsifHhvQSViWC1pkrfDd5D6NKHGUQ-cMXQv6/exec";
-                
                 try {
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: "POST",
@@ -359,10 +427,10 @@
                         alert("✅ Tạo PDF thành công!");
                         window.open(result.pdfUrl, "_blank");
                     } else {
-                        alert("Lỗi từ server: " + (result.error || "Không xác định"));
+                        alert("Lỗi: " + (result.error || "Không xác định"));
                     }
                 } catch (err) {
-                    alert("Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.");
+                    alert("Lỗi kết nối. Vui lòng thử lại sau.");
                     console.error(err);
                 }
             }
@@ -370,6 +438,7 @@
 
         function nhapLaiForm() {
             if (confirm("Bạn có chắc muốn nhập lại toàn bộ phiếu không?")) {
+                scoreMemory = {};
                 location.reload();
             }
         }
