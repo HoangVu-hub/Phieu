@@ -8,14 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #f8f9fa;
-        }
-        .card {
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; }
+        .card { border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         .section-title {
             background: linear-gradient(135deg, #1e40af, #3b82f6);
             color: white;
@@ -23,20 +17,11 @@
             border-radius: 16px 16px 0 0;
             font-weight: 600;
         }
-        .form-control, .form-select {
-            border-radius: 10px;
-            padding: 10px 14px;
-        }
-        .form-label {
-            font-weight: 600;
-            color: #1e40af;
-        }
+        .form-control, .form-select { border-radius: 10px; padding: 10px 14px; }
+        .form-label { font-weight: 600; color: #1e40af; }
         .required { color: #ef4444; }
         .table th { background-color: #f1f5f9; font-weight: 600; }
-        .score-input {
-            text-align: center;
-            font-weight: 600;
-        }
+        .score-input { text-align: center; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -50,9 +35,7 @@
 
                 <!-- THÔNG TIN HỌC SINH -->
                 <div class="card mb-4">
-                    <div class="section-title">
-                        <i class="fas fa-user me-2"></i> THÔNG TIN HỌC SINH
-                    </div>
+                    <div class="section-title"><i class="fas fa-user me-2"></i> THÔNG TIN HỌC SINH</div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -81,8 +64,8 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Số căn cước công dân (12 số) <span class="required">*</span></label>
-                                <input type="text" id="cccd" class="form-control" maxlength="12" placeholder="Nhập đúng 12 số CCCD"
-                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <input type="text" id="cccd" class="form-control" maxlength="12" 
+                                       placeholder="Nhập đúng 12 số CCCD" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                             </div>
                             <div class="col-md-8">
                                 <label class="form-label">Hộ khẩu thường trú - Xã/Phường</label>
@@ -97,11 +80,11 @@
                                 <input type="text" id="diaChiNha" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Học THPT/GDTX tại tỉnh</label>
+                                <label class="form-label">Tỉnh THPT</label>
                                 <select id="tinhTruongTHPT" class="form-select"></select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Trường</label>
+                                <label class="form-label">Trường THPT</label>
                                 <input type="text" id="truongTHPT" class="form-control">
                             </div>
                             <div class="col-md-6">
@@ -194,7 +177,7 @@
         // ==================== DỮ LIỆU ====================
         const tinhList = ["An Giang","Bạc Liêu","Bến Tre","Cà Mau","Cần Thơ","Đồng Tháp","Hậu Giang","Kiên Giang","Long An","Sóc Trăng","Tiền Giang","Trà Vinh","Vĩnh Long","TP. Hồ Chí Minh","Khác"];
         const danTocList = ["Kinh","Hoa","Khmer","Chăm","Thái","Mường","Nùng","Tày","H'Mông","Dao","Khác"];
-       
+
         const majors = [
             {name: "Y khoa", combos: ["A00","A01","A02","B00","B03","B08","C01","C08","D07"]},
             {name: "Dược học", combos: ["A00","A01","A02","B00","B03","B08","C01","C08","D07"]},
@@ -203,6 +186,7 @@
             {name: "Quản trị kinh doanh", combos: ["A00","A01","A03","C03","C04","D01","X02","X17","X21"]},
             {name: "Luật", combos: ["A00","A01","C00","C03","C07","D01","X02","X17","X21"]},
         ];
+
         const subjectMap = {
             "A00": ["Toán", "Vật Lý", "Hóa Học"],
             "A01": ["Toán", "Vật Lý", "Tiếng Anh"],
@@ -218,6 +202,7 @@
             "D01": ["Toán", "Văn", "Tiếng Anh"],
             "D07": ["Toán", "Hóa Học", "Tiếng Anh"],
         };
+
         let scoreMemory = {};
 
         // ==================== KHỞI TẠO ====================
@@ -229,9 +214,7 @@
             danTocList.forEach(dt => document.getElementById('danToc').appendChild(new Option(dt, dt)));
         }
 
-        // ==================== CHỌN NGÀNH & BẢNG ĐIỂM (giữ nguyên) ====================
-        // ... (phần code chọn ngành và bảng điểm giữ nguyên như cũ, tôi rút gọn để tiết kiệm chỗ)
-
+        // ==================== CHỌN NGÀNH & ĐIỂM (rút gọn) ====================
         const majorSearch = document.getElementById('majorSearch');
         const suggestions = document.getElementById('suggestions');
         let selectedIndex = -1;
@@ -258,7 +241,6 @@
             suggestions.style.display = 'none';
             document.getElementById('comboSection').classList.remove('d-none');
             renderComboOptions(majors[index].combos);
-            document.getElementById('scoreSection').classList.add('d-none');
         }
 
         function renderComboOptions(combos) {
@@ -285,16 +267,9 @@
                 tbody.appendChild(tr);
             });
             document.getElementById('scoreSection').classList.remove('d-none');
-            setupScoreInputs();
         }
 
-        function setupScoreInputs() {
-            document.querySelectorAll('#scoreTableBody input').forEach(input => {
-                input.addEventListener('input', () => input.value = input.value.replace(/[^0-9.]/g, ''));
-            });
-        }
-
-        // ==================== SUBMIT FORM (ĐÃ ĐỒNG BỘ VỚI TEMPLATE) ====================
+        // ==================== SUBMIT ====================
         async function submitForm() {
             const data = {
                 ho_ten: document.getElementById('hoTen').value.trim(),
@@ -315,32 +290,25 @@
                 nam_tot_nghiep: document.getElementById('namTotNghiep').value,
                 nganh1: document.getElementById('majorSearch').value,
                 thm1: document.getElementById('comboSelect').value,
-                nganh2: "", thm2: "",
-                nganh3: "", thm3: "",
-                nganh4: "", thm4: "",
+                nganh2: "", thm2: "", nganh3: "", thm3: "", nganh4: "", thm4: "",
                 mon1: "", d_mon1_10: "", d_mon1_11: "", d_mon1_12: "",
                 mon2: "", d_mon2_10: "", d_mon2_11: "", d_mon2_12: "",
                 mon3: "", d_mon3_10: "", d_mon3_11: "", d_mon3_12: ""
             };
 
-            // Lấy điểm từ bảng
-            const rows = document.querySelectorAll('#scoreTableBody tr');
-            rows.forEach((row, index) => {
+            // Lấy điểm
+            document.querySelectorAll('#scoreTableBody tr').forEach((row, index) => {
                 const mon = row.cells[1].textContent.trim();
                 const d10 = row.cells[2].querySelector('input').value || "";
                 const d11 = row.cells[3].querySelector('input').value || "";
                 const d12 = row.cells[4].querySelector('input').value || "";
-                if (index === 0) {
-                    data.mon1 = mon; data.d_mon1_10 = d10; data.d_mon1_11 = d11; data.d_mon1_12 = d12;
-                } else if (index === 1) {
-                    data.mon2 = mon; data.d_mon2_10 = d10; data.d_mon2_11 = d11; data.d_mon2_12 = d12;
-                } else if (index === 2) {
-                    data.mon3 = mon; data.d_mon3_10 = d10; data.d_mon3_11 = d11; data.d_mon3_12 = d12;
-                }
+                if (index === 0) { data.mon1 = mon; data.d_mon1_10 = d10; data.d_mon1_11 = d11; data.d_mon1_12 = d12; }
+                else if (index === 1) { data.mon2 = mon; data.d_mon2_10 = d10; data.d_mon2_11 = d11; data.d_mon2_12 = d12; }
+                else if (index === 2) { data.mon3 = mon; data.d_mon3_10 = d10; data.d_mon3_11 = d11; data.d_mon3_12 = d12; }
             });
 
             if (!data.ho_ten || !data.cccd || data.cccd.length !== 12 || !data.nganh1) {
-                alert("Vui lòng nhập đầy đủ thông tin bắt buộc:\n• Họ và tên\n• CCCD (12 số)\n• Ngành học");
+                alert("Vui lòng nhập đầy đủ: Họ tên, CCCD (12 số), Ngành học!");
                 return;
             }
 
@@ -363,7 +331,6 @@
                     }
                 } catch (err) {
                     alert("Lỗi kết nối. Vui lòng thử lại sau.");
-                    console.error(err);
                 }
             }
         }
